@@ -1,0 +1,24 @@
+td
+{
+	border: black solid 1px;
+}
+
+.column-1, .column-2, .column-3, .column-4
+{
+	min-width: 100px;
+}
+
+.column-0
+{
+	min-width: 250px;
+}
+
+table
+{
+	border-collapse: collapse;
+}
+
+#first-section, #second-section
+{
+	margin-bottom: 15px;
+}
