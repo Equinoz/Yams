@@ -1,6 +1,26 @@
+/* Mise en page */
+
+body
+{
+	font-family: Arial;
+	background-color: #f5f1a5;
+}
+
+#grid
+{
+	width: 860px;
+	margin: 30px auto 30px auto;
+}
+
 table
 {
+	margin-bottom: 15px;
 	border-collapse: collapse;
+	text-align: center;
+}
+
+#first-section, #second-section
+{
 }
 
 td
@@ -10,6 +30,19 @@ td
 	padding: 5px;
 }
 
+.help
+{
+	height: 20px;
+	display: none;
+}
+
+em
+{
+	font-size: 14px;
+}
+
+/* Largeurs et couleurs des colonnes */
+
 .column-0
 {
 	min-width: 260px;
@@ -18,32 +51,22 @@ td
 
 .column-1, .column-2, .column-3, .column-4
 {
-	min-width: 100px;
+	width: 150px;
 }
 
-#first-section tr:first-child > .column-0
+#first-section tr:first-child > .column-0, #first-total .column-0
 {
 	background-color: #e61616;
 }
 
-#total .column-0
+#total .column-0, #first-section .column-2, #first-section .column-4
 {
 	background-color: #fa756f;
-}
-
-#first-total .column-0
-{
-	background-color: #e61616;
 }
 
 #first-section .column-1, #first-section .column-3
 {
 	background-color: #ef5c56;
-}
-
-#first-section .column-2, #first-section .column-4
-{
-	background-color: #fa756f;
 }
 
 #second-section tr:first-child > .column-0, #second-section tr:last-child > .column-0
@@ -76,12 +99,107 @@ td
 	background-color: #babbbe;
 }
 
-#first-section, #second-section
+/* Bouton reset */
+
+#reset-button
 {
-	margin-bottom: 15px;
+	width: 130px;
+	margin: 25px auto 0 auto;
 }
 
-em
+#reset
 {
+	background-color: #70b5e2;
+	width: 130px;
+	height: 30px;
+	border: 2px groove #70b5e2;
 	font-size: 14px;
+}
+
+/* Grille responsive */
+
+@media all and (max-width: 899px)
+{
+	#grid
+	{
+		width: 660px;
+	}
+
+	.column-1, .column-2, .column-3, .column-4
+	{
+		width: 100px;
+	}
+}
+
+@media all and (max-width: 699px)
+{
+	#grid
+	{
+		width: 560px;
+	}
+
+	.column-4
+	{
+		display: none;
+	}
+}
+
+@media all and (max-width: 599px)
+{
+	#grid
+	{
+		width: 460px;
+	}
+
+	.column-3
+	{
+		display: none;
+	}
+}
+
+@media all and (max-width: 499px)
+{
+	#grid
+	{
+		width: 360px;
+	}
+
+	.column-2
+	{
+		display: none;
+	}
+}
+
+@media all and (max-width: 379px)
+{
+	body
+	{
+		margin: 0px;
+	}
+
+	#grid
+	{
+		width: 100%;
+		margin: 15px 0 15px;
+	}
+
+	table
+	{
+		width: 100%;
+	}
+
+	em
+	{
+		font-size: 12px;
+	}
+
+	.column-0
+	{
+		min-width: 230px;
+	}
+
+	.column-1
+	{
+		min-width: 90px;
+	}
 }
