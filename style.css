@@ -51,6 +51,7 @@ em
 
 .column-1, .column-2, .column-3, .column-4
 {
+	font-weight: bold;
 	width: 150px;
 }
 
@@ -109,6 +110,7 @@ em
 
 #reset
 {
+	color: black;
 	background-color: #70b5e2;
 	width: 130px;
 	height: 30px;
