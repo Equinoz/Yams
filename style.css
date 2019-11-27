@@ -43,59 +43,59 @@ em
 
 /* Largeurs et couleurs des colonnes */
 
-.column-0
+.label
 {
 	min-width: 260px;
 	background-color: #f5f2cf;
 }
 
-.column-1, .column-2, .column-3, .column-4
+.column-0, .column-1, .column-2, .column-3
 {
 	font-weight: bold;
 	width: 150px;
 }
 
-#first-section tr:first-child > .column-0, #first-total .column-0
+#first-section tr:first-child > .label, #first-total .label
 {
 	background-color: #e61616;
 }
 
-#total .column-0, #first-section .column-2, #first-section .column-4
+#total .label, #first-section .column-1, #first-section .column-3
 {
 	background-color: #fa756f;
 }
 
-#first-section .column-1, #first-section .column-3
+#first-section .column-0, #first-section .column-2
 {
 	background-color: #ef5c56;
 }
 
-#second-section tr:first-child > .column-0, #second-section tr:last-child > .column-0
+#second-section tr:first-child > .label, #second-section tr:last-child > .label
 {
 	background-color: #43a03a;
 }
 
-#second-section .column-1, #second-section .column-3
+#second-section .column-0, #second-section .column-2
 {
 	background-color: #63c545;
 }
 
-#second-section .column-2, #second-section .column-4
+#second-section .column-1, #second-section .column-3
 {
 	background-color: #98f07c;
 }
 
-#total-section .column-0
+#total-section .label
 {
 	background-color: #606166;
 }
 
-#total-section .column-1, #total-section .column-3
+#total-section .column-0, #total-section .column-2
 {
 	background-color: #797a80;
 }
 
-#total-section .column-2, #total-section .column-4
+#total-section .column-1, #total-section .column-3
 {
 	background-color: #babbbe;
 }
@@ -127,7 +127,7 @@ em
 		width: 660px;
 	}
 
-	.column-1, .column-2, .column-3, .column-4
+	.column-0, .column-1, .column-2, .column-3
 	{
 		width: 100px;
 	}
@@ -140,7 +140,7 @@ em
 		width: 560px;
 	}
 
-	.column-4
+	.column-3
 	{
 		display: none;
 	}
@@ -153,7 +153,7 @@ em
 		width: 460px;
 	}
 
-	.column-3
+	.column-2
 	{
 		display: none;
 	}
@@ -166,7 +166,7 @@ em
 		width: 360px;
 	}
 
-	.column-2
+	.column-1
 	{
 		display: none;
 	}
@@ -195,12 +195,12 @@ em
 		font-size: 12px;
 	}
 
-	.column-0
+	.label
 	{
 		min-width: 230px;
 	}
 
-	.column-1
+	.column-0
 	{
 		min-width: 90px;
 	}
