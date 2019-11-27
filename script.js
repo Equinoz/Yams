@@ -1,6 +1,7 @@
 $(function() {
 
 	// Fonction vérifiant si la valeur du champ de saisie est conforme au label correspondant
+
 	function checkValue(value, label) {
 	//console.log(label);
 		if (value < 0 || value > 50)
@@ -10,19 +11,25 @@ $(function() {
 	}
 
 	// Fonction mettant à jour les totaux 
+
 	function updateTotals(section, column) {
-		let rempli = true;
-		let total = 0;
-		let bonus;
-		section = "#" + section;
-		$(section + " tr ." + column + ".clickable").each(function() {
+		let columnFull = true,
+				total = 0, 
+				bonus;
+
+		// Parcours de la colonne de la section concernée pour faire le total et déterminer si un champ est vide
+		$("#" + section + " tr ." + column + ".clickable").each(function() {
 			total += Number($(this).text());
-			if ($(this).text() === "") {
-				rempli = false;
-			}
+			if ($(this).text() === "")
+				columnFull = false;
 		});
-		if (section === "#first-section") {
-			if (rempli) {
+
+		if (!columnFull)
+			total = bonus = "";
+
+		if (section === "first-section") {
+			// Calcul du bonus si tous les champs de la colonne sont remplis
+			if (columnFull) {
 				if (total > 56 && total < 63)
 					bonus = 20;
 				else if (total > 62)
@@ -30,37 +37,44 @@ $(function() {
 				else
 					bonus = 0;
 			}
-			else {
-				total = bonus = "";
-			}
-			$(section + " #total ." + column).text(total);
-			$(section + " #bonus ." + column).text(bonus);
-			$(section + " #first-total ." + column).text(total + bonus);
-		}
-		else if (section === "#second-section") {
-			if (rempli)
-				$(section + " #second-total ." + column).text(total);
-			else
-				$(section + " #second-total ." + column).text("");
+
+ 			// Affichage du total et du bonus pour la section supérieure
+			$("#total ." + column).text(total);
+			$("#bonus ." + column).text(bonus);
+			$("#first-total ." + column).text(total + bonus);
 		}
 
-		/*if ($("#second-section #second-total .column-1").text() !== "" && $("#first-section #first-total .column-1").text() !== "")
-			$("#total-section #main-total .column-1").text(Number($("#first-section #first-total .column-1").text()) + Number($("#second-section #second-total .column-1").text()));
 		else
-			$("#total-section #main-total .column-1").text("");*/
+			// Affichage du total pour la section inférieure
+			$("#second-total ." + column).text(total);
+
+		// Récupération de la valeur des totaux intermédiaires
+		let firstTotal = $("#first-total ." + column).text(),
+				secondTotal = $("#second-total ." + column).text(),
+				mainTotal;
+
+		// Calcul et affichage du total général
+		if (firstTotal === "" || secondTotal === "")
+			mainTotal = "";
+		else
+			mainTotal = Number(firstTotal) + Number(secondTotal);
+		$("#main-total ." + column).text(mainTotal);
 	}
 
 	// Modification du contenu des cellules du tableau
+
 	$(".clickable").on("click", function(e) {
+		// Récupération de l'objet représentant la cellule, son label, sa section, sa colonne et son contenu
 		let cell = $(this);
-		let cellLabel = cell.parent().attr("id");
-		let cellSection = cell.parents("table").attr("id");
-		let cellColumn = cell.attr("class").split(" ")[0];
-		let cellValue = cell.text();
+		let cellLabel = cell.parent().attr("id"),
+				cellSection = cell.parents("table").attr("id"),
+				cellColumn = cell.attr("class").split(" ")[0],
+				cellValue = cell.text();
+
+		// Insertion d'une zone de saisie dans la cellule
 		cell.html("").append("<input type='number' min=0 max=50 style='width:60px' />");
 		let input = cell.children();
-		input.val(cellValue);
-		input.focus();
+		input.val(cellValue).focus();
 
 		input.on("keypress", function(e) {
 			if (e.keyCode === 13)
@@ -68,16 +82,20 @@ $(function() {
 		});
 
 		input.on("blur", function() {
-			if (checkValue(input.val(), cellLabel))
+			// Vérification de la valeur de la zone de saisie par rapport au label associé
+			if (checkValue(input.val(), cellLabel)) {
 				cell.text(input.val());
+				// Mise à jour des totaux
+				updateTotals(cellSection, cellColumn);
+			}
 			else
 				cell.text(cellValue);
 			input.remove();
-			updateTotals(cellSection, cellColumn);
 		});
 	})
 
-	// Remise à zéro de la grille
+	// Remise à zéro de la grille avec confirmation
+
 	$("#reset-button").on("click", function() {
 		if (confirm("Etes-vous sûr de vouloir effacer toute la grille?"))
 			$("[class *= 'column-']").each(function() { $(this).html(""); });
