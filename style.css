@@ -17,6 +17,7 @@ table
 	margin-bottom: 15px;
 	border-collapse: collapse;
 	text-align: center;
+	background-color: #db8989;
 }
 
 #first-section, #second-section
@@ -33,6 +34,8 @@ td
 .help
 {
 	height: 20px;
+	color: #770909;
+	font-weight: bold;
 	display: none;
 }
 

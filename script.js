@@ -2,12 +2,36 @@ $(function() {
 
 	// Fonction vérifiant si la valeur du champ de saisie est conforme au label correspondant
 
-	function checkValue(value, label) {
-	//console.log(label);
-		if (value < 0 || value > 50)
+	function checkValue(value, label, column) {
+		value = Number(value);
+		let scores = allowedScores[label],
+				otherChanceValue;
+
+		// Si le label dispose d'un tableau de scores possibles on vérifie la validité de la valeur
+		if (Array.isArray(scores)) {
+			if (~scores.indexOf(value))
+				return true;
 			return false;
-		else
+		}
+
+		// Si il n'y a pas de tableau on vérifie que la saisie se trouve dans l'intervalle de score possible
+		else if (value >= 5 && value <= 30 || value === 0) {
+			// Vérification des valeurs des champs "chances"
+			switch (label) {
+				case "chance1":	
+					otherChanceValue = $("#chance2 ." + column).text();
+					if (otherChanceValue <= value && otherChanceValue !== "" && otherChanceValue != 0)
+						return false;
+
+				case "chance2":	
+					otherChanceValue = $("#chance1 ." + column).text();
+					if (otherChanceValue >= value && otherChanceValue !== "" && value != 0)
+						return false;
+			}
 			return true;
+		}
+		else
+			return false;
 	}
 
 	// Fonction mettant à jour les totaux 
@@ -61,6 +85,25 @@ $(function() {
 		$("#main-total ." + column).text(mainTotal);
 	}
 
+	// Objet contenant les scores possibles pour les labels correspondants
+	let allowedScores = {
+		one: [0, 1, 2, 3, 4, 5],
+		two: [0, 2, 4, 6, 8, 10],
+		three: [0, 3, 6, 9, 12, 15],
+		four: [0, 4, 8, 12, 16, 20],
+		five: [0, 5, 10, 15, 20, 25],
+		six: [0, 6, 12, 18, 24, 30],
+		two_pair: null,
+		brelan: null,
+		full: [0, 25],
+		straight: [0, 15],
+		big_straight: [0, 20],
+		poker: [0, 40],
+		yams: [0, 50],
+		chance1: null,
+		chance2: null
+	};
+
 	// Modification du contenu des cellules du tableau
 
 	$(".clickable").on("click", function(e) {
@@ -83,13 +126,16 @@ $(function() {
 
 		input.on("blur", function() {
 			// Vérification de la valeur de la zone de saisie par rapport au label associé
-			if (checkValue(input.val(), cellLabel)) {
+			if (checkValue(input.val(), cellLabel, cellColumn)) {
 				cell.text(input.val());
 				// Mise à jour des totaux
 				updateTotals(cellSection, cellColumn);
 			}
-			else
+			else {
 				cell.text(cellValue);
+				// Affichage du message d'aide si la saisie n'est pas conforme
+				cell.parent().next().fadeIn(600, function() {$(this).delay(3000).fadeOut(1000)});
+			}
 			input.remove();
 		});
 	})
@@ -97,8 +143,10 @@ $(function() {
 	// Remise à zéro de la grille avec confirmation
 
 	$("#reset-button").on("click", function() {
-		if (confirm("Etes-vous sûr de vouloir effacer toute la grille?"))
+		if (confirm("Etes-vous sûr de vouloir effacer toute la grille?")) {
 			$("[class *= 'column-']").each(function() { $(this).html(""); });
+			$(".help").hide();
+		}
 	});
 
 });
