@@ -1,5 +1,6 @@
 $(function() {
 
+	// ******* Fonctions *******
 	// Fonction vérifiant si la valeur du champ de saisie est conforme au label correspondant
 
 	function checkValue(value, label, column) {
@@ -84,8 +85,9 @@ $(function() {
 			mainTotal = Number(firstTotal) + Number(secondTotal);
 		$("#main-total ." + column).text(mainTotal);
 	}
+	// **************
 
-	// Objet contenant les scores possibles pour les labels correspondants
+	// Objet contenant les scores possibles selon les labels
 	let allowedScores = {
 		one: [0, 1, 2, 3, 4, 5],
 		two: [0, 2, 4, 6, 8, 10],
@@ -103,6 +105,14 @@ $(function() {
 		chance1: null,
 		chance2: null
 	};
+
+	// Saisie prénom utilisateur
+
+	let user = prompt("Veuillez entrer le prénom du joueur").substring(0, 12);
+	if (user !== "") {
+		$("#userName").text("Partie de " + user);
+		document.title = document.title + ": " + user;
+	}
 
 	// Modification du contenu des cellules du tableau
 
